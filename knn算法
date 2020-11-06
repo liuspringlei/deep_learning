@@ -1,0 +1,16 @@
+"""
+在这个案例中，有一个二维的张量，第一列是数据的特征，第二列为特征的映射结果，knn算法要实现的是，在一个随机的特征点dictpoint，用k值来计算预测的映射结果
+"""
+
+import numpy as np 
+import collections as c
+data = np.array([[223,4],[323,4],[213,3],[189,2],[211,4],[199,3]]) #手动输入一个二维张量
+feature = data[:,0]   #利用切片运算符，提取中第一列
+label = data[:,-1]  #提取出倒数第一列
+dictpoint = 200 #手动输入特征点dictpoint
+distance = list(map(lambda x:abs(dictpoint-x),feature)) #利用map函数，分别计算中，每个特征点到dictpoint的距离
+sort = np.argsort(distance) #利用argsort函数，对这些张量进行排序，返回值是，数组的下标
+sortlabel = label[sort] #然后把映射结果，按照数组下标进行排序。此时就可以看出，在取K值的时候，dictpoint的映射结果预测
+print(sortlabel) 
+k = 4 #取K值进行计算
+print(c.Counter(sortlabel[0:k]).most_common(1)[0][0]) #打印出在K范围内的映射结果中，出现最多的结果
