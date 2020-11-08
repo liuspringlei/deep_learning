@@ -16,4 +16,11 @@ k = 4 #取K值进行计算
 print(c.Counter(sortlabel[0:k]).most_common(1)[0][0]) #打印出在K范围内的映射结果中，出现最多的结果
 
 """
-分析一下这个整个过程，如何能够把这个过程给包装成为一个函数呢，要包装函数，首先要想到的是这个函数需要哪几个参数，首先就是
+分析一下这个整个过程，如何能够把这个过程给包装成为一个函数呢，要包装函数，首先要想到的是这个函数需要哪几个参数，首先就是k值和预测点dictpoint，然后可以把特征数据和他的映射值label
+传入进来，于是knn算法这个函数就变成了下面的,当我们有大量的数据集的时候，就可以直接使用我们封装的knn函数，进行训练
+"""
+def knn_func(k,dictpoint,feature,label):
+    distance = list(map(lambda x:abs(dictpoint-x),feature)) 
+    sort = np.argsort(distance) 
+    sortlabel = label[sort] 
+    return(c.Counter(sortlabel[0:k]).most_common(1)[0][0])
