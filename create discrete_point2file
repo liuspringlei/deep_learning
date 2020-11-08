@@ -1,0 +1,10 @@
+"""
+本次中，我们的实验是创建一堆离散的点，练习保存到本地的CSV文件，和读取本地的CSV文件，目的在于对于测试数据CSV文件的读取，保存，打乱顺序等等的操作，提炼出测试数据和训练数据
+"""
+
+import numpy as np 
+data_1 = np.random.randint(180,230,size=100) #随机生成整型的数字，形状是（1，100）
+data_2 = np.random.randint(1,7,size=100)
+data_3 = np.array([data_1,data_2]) #创建新的数组，合并之前的两个数组，形状是（2，100）
+data = data_3.T #转置这个数组，把形状变成（100，2）
+np.savetxt("data.csv",data,delimiter=",") #保存到文件
