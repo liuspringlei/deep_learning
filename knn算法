@@ -14,3 +14,6 @@ sortlabel = label[sort] #然后把映射结果，按照数组下标进行排序�
 print(sortlabel) 
 k = 4 #取K值进行计算
 print(c.Counter(sortlabel[0:k]).most_common(1)[0][0]) #打印出在K范围内的映射结果中，出现最多的结果
+
+"""
+分析一下这个整个过程，如何能够把这个过程给包装成为一个函数呢，要包装函数，首先要想到的是这个函数需要哪几个参数，首先就是
