@@ -8,3 +8,5 @@ data_2 = np.random.randint(1,7,size=100)
 data_3 = np.array([data_1,data_2]) #创建新的数组，合并之前的两个数组，形状是（2，100）
 data = data_3.T #转置这个数组，把形状变成（100，2）
 np.savetxt("data.csv",data,delimiter=",") #保存到文件
+data = np.loadtxt("data.csv",delimiter=",")
+data_train = np.random.shuffle(data)
