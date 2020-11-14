@@ -1,0 +1,39 @@
+import numpy as np 
+data = np.array([
+    [80,200],
+    [95,230],
+    [104,245],
+    [112,274],
+    [125,259],
+    [135,262]
+])
+k = 1 
+b = 1
+learningrate = 0.00001
+xarray = data[:,0] #切片运算符把data数组中的第一列切出来
+yreal = data[:,-1]
+def gradient_descent(): #定义一次的梯度下降算法，算法的核心思想是mse对变量的偏导数的计算。返回值是对应的每个维度的偏导数的值
+    bslope = 0
+    for index ,x in enumerate(xarray):
+        bslope =bslope+k*x+b-yreal[index]
+    bslope=bslope*2/len(xarray)
+    print("mse对b求导= {}".format(bslope))
+    kslope = 0
+    for index ,x in enumerate(xarray):
+        kslope =kslope+(k*x+b-yreal[index])*x
+    kslope=kslope*2/len(xarray)
+    print("mse对k求导= {}".format(kslope))
+    return(bslope,kslope)
+def train(): #进行训练，开始拟合数据，当偏导数的值，小于某个值的时候，我们就认为，误差均方函数mse在这个值的邻域内区域稳定，求得此时的k和b
+    for i in range(1,1000000):
+        bslope,kslope= gradient_descent()
+        global k 
+        k = k -kslope*learningrate
+        global b
+        b = b- bslope*learningrate
+        if abs(kslope)<0.5 and abs(bslope)<0.5:
+            break
+    print("k={},b={}".format(k,b))
+
+if __name__ =="__main__":
+    train()
