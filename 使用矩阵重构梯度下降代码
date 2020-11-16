@@ -1,0 +1,36 @@
+import numpy as np 
+import time
+data = np.array([
+    [80,200],
+    [95,230],
+    [104,245],
+    [112,274],
+    [125,259],
+    [135,262]
+])
+k = 1 
+b = 1
+learningrate = 0.00001
+xarray = data[:,0:1] #切片运算符把data数组中的第一列切出来
+yreal = data[:,-1:-2:-1]
+weights = np.array([
+    [k],
+    [b]
+])
+xarray = np.append(xarray,np.ones((6,1)),axis=1)
+def gradient_descent():
+    result = np.dot(xarray.T,np.dot(xarray,weights)-yreal)*2/len(xarray)
+    return result
+def train(): #进行训练，开始拟合数据，当偏导数的值，小于某个值的时候，我们就认为，误差均方函数mse在这个值的邻域内区域稳定，求得此时的k和b
+    start = time.time()
+    for i in range(1,10000000):
+        result = gradient_descent()
+        global weights
+        weights = weights -result*learningrate
+        if abs(result[0][0])<0.5 and abs(result[1][0])<0.5:
+            break
+    end = time.time()
+    print(weights)
+    print("消耗的时间={}".format(end-start))
+if __name__ =="__main__":
+    train()
